@@ -1,23 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
+import Mensaje from './Mensaje';
 
-function App() {
+const Description = () => {
+  return(
+    <p>Volviendo hacer la app de react</p>
+  )
+}
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Mensaje color='blue' message="Recordandome"/>
+      <Mensaje color='green' message="si ahuevo aprendi"/>
+      <Mensaje color='red' message="lo primero"/>
+      <Description />
     </div>
   );
 }
