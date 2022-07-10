@@ -1,53 +1,39 @@
-import React from 'react'
+import {useState} from 'react'
 import ReactDOM from 'react-dom'
 
-const Header = ({course}) => <h1>{course}</h1>
+const rootElement = document.getElementById('root')
 
-const Part = (props) => {
-  return(
-    <p>{props.parts}</p>
-  )
-}
+const App = (props) => {
+  const [contador, setContador] = useState(0)
 
-const Content = (props) => {
-  return(
-    <div>
-      <Part parts={props.parts[0]["name"]}/>
-      <Part parts={props.parts[1]["name"]}/>
-      <Part parts={props.parts[2]["name"]}/>
-    </div>
-  )
-}
+  /*const contador = useState(0)
+  const contadorValue = contador[0]
+  const updateContador = contador[1]
+  */
 
-const Total = (props) => {
-  return(
-    <p>Number of exercises {props.parts[0]["exercises"] + props.parts[1]["exercises"] + props.parts[2]["exercises"]}</p>
-  )
-}
+  const handleClick = () => setContador(contador + 1)
 
-const App = () => {
-  const course = 'Half Stack application development'
-  const parts = [
-    {
-      name: 'Fundamentals of React',
-      exercises: 10
-    },
-    {
-      name: 'Using props to pass data',
-      exercises: 7
-    },
-    {
-      name: 'State of a component',
-      exercises: 14
-    }
-  ]
+  const handleClickReset = () => setContador(0)
+
+  const handleClickDes = () => {
+    contador === 0 ? setContador(0) : setContador(contador - 1)
+  }
+
   return (
     <div>
-      <Header course={course}/>
-      <Content parts={parts}/>
-      <Total parts={parts}/>
+      <p>El valor del contador es:</p>
+      <h1>{contador}</h1>
+      <button onClick={handleClick}>
+        incrementar
+      </button>
+      <button onClick={handleClickDes}>
+        Descrementar
+      </button>
+      <button onClick={handleClickReset}>
+        Reset
+      </button>
     </div>
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, rootElement)
