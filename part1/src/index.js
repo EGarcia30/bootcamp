@@ -1,37 +1,50 @@
 import {useState} from 'react'
 import ReactDOM from 'react-dom'
+import "./index.css"
 
 const rootElement = document.getElementById('root')
 
-const App = (props) => {
-  const [contador, setContador] = useState(0)
+const App = () => {
+  // const [left, setLeft] = useState(0)
+  // const [right, setRight] = useState(0)
+  const [counters, setCounters] = useState({
+    left: 0,
+    right: 0,
+    mensaje: 'Mensaje en el estado'
+  });
+  const[clicks, setClicks] = useState([])
 
-  /*const contador = useState(0)
-  const contadorValue = contador[0]
-  const updateContador = contador[1]
-  */
+  const handleClickLeft = () => {
+    const newCountersState = {
+      ...counters,
+      left: counters.left + 1,
+    };
 
-  const handleClick = () => setContador(contador + 1)
-
-  const handleClickReset = () => setContador(0)
-
-  const handleClickDes = () => {
-    contador === 0 ? setContador(0) : setContador(contador - 1)
+    setCounters(newCountersState);
+    setClicks(prevClicks => ([...prevClicks, 'L']))
   }
+
+  const handleClickRight = () => {
+    setCounters({
+      ...counters,
+      right: counters.right + 1,
+    });
+    setClicks(prevClicks => ([...prevClicks, 'R']))
+  }
+
 
   return (
     <div>
-      <p>El valor del contador es:</p>
-      <h1>{contador}</h1>
-      <button onClick={handleClick}>
-        incrementar
+      {counters.left}
+      <button onClick={handleClickLeft}>
+        left
       </button>
-      <button onClick={handleClickDes}>
-        Descrementar
+      <button onClick={handleClickRight}>
+        right
       </button>
-      <button onClick={handleClickReset}>
-        Reset
-      </button>
+      {counters.right}
+      <p>Clicks totales: {clicks.length}</p>
+      {clicks.join(' ')}
     </div>
   )
 }
