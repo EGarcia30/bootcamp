@@ -1,57 +1,58 @@
-import {useState} from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-import "./index.css"
 
-const WarningNotUsed = () => <h1>Todavia no se ha usado el contador</h1>
-
-const ListOfClicks = ({clicks}) =>{
-  return <p>{clicks.join(' ')}</p>
-}
+const Titulo = () => <h1>Give Feedback</h1>
 
 const App = () => {
-  // const [left, setLeft] = useState(0)
-  // const [right, setRight] = useState(0)
-  const [counters, setCounters] = useState({
-    left: 0,
-    right: 0,
-    mensaje: 'Mensaje en el estado'
-  });
-  const[clicks, setClicks] = useState([])
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+  const handleStateGood = () => {
+    setGood(
+      good + 1
+    )
+  };
 
-  const handleClickLeft = () => {
-    const newCountersState = {
-      ...counters,
-      left: counters.left + 1,
-    };
+  const handleStateNeutral = () => {
+    setNeutral(
+      neutral + 1
+    )
+  };
 
-    setCounters(newCountersState);
-    setClicks(prevClicks => ([...prevClicks, 'L']))
-  }
+  const handleStateBad = () => {
+    setBad(
+      bad + 1
+    )
+  };
 
-  const handleClickRight = () => {
-    setCounters({
-      ...counters,
-      right: counters.right + 1,
-    });
-    setClicks(prevClicks => ([...prevClicks, 'R']))
-  }
-
-
+  let sum = good + neutral + bad;
+  let res = sum / 3;
+  let pos = good / sum;
   return (
     <div>
-      {counters.left}
-      <button onClick={handleClickLeft}>
-        left
+      <Titulo/>
+      
+      <button onClick={handleStateGood}>
+        Good
       </button>
-      <button onClick={handleClickRight}>
-        right
+      <button onClick={handleStateNeutral}>
+        Neutral
       </button>
-      {counters.right}
-      <p>Clicks totales: {clicks.length}</p>
-      {clicks.length === 0 ? <WarningNotUsed/> : <ListOfClicks clicks={clicks}/>}
+      <button onClick={handleStateBad}>
+        Bad
+      </button>
+      <h2>statics</h2>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
+      <p>All: {sum}</p>
+      <p>Average: {res}</p>
+      <p>positive: {pos}%</p>
     </div>
   )
 }
 
-const rootElement = document.getElementById('root')
-ReactDOM.render(<App />, rootElement)
+ReactDOM.render(<App />, 
+  document.getElementById('root')
+)
