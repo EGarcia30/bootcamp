@@ -1,21 +1,37 @@
-import './App.css';
-import Mensaje from './Mensaje';
+import { Note } from "./Note"
 
-const Description = () => {
+const notes = [
+  {
+    id: 1,
+    content: 'HTML is easy',
+    date: '2019-05-30T17:30:31.098Z',
+    important: true,
+    categories: ['sports', 'hobby']
+  },
+  {
+    id: 2,
+    content: 'Browser can execute only JavaScript',
+    date: '2019-05-30T18:39:34.091Z',
+    important: false,
+  },
+  {
+    id: 3,
+    content: 'GET and POST are the most important methods of HTTP protocol',
+    date: '2019-05-30T19:20:14.298Z',
+    important: true,
+  },
+]
+
+export default function App() {
   return(
-    <p>Volviendo hacer la app de react</p>
+    <ul>
+      {
+        notes.map((note) => {
+          return(
+            <Note key={note.id} {...note} />
+          )
+        })
+      }
+    </ul>
   )
 }
-
-const App = () => {
-  return (
-    <div className="App">
-      <Mensaje color='blue' message="Recordandome"/>
-      <Mensaje color='green' message="si ahuevo aprendi"/>
-      <Mensaje color='red' message="lo primero"/>
-      <Description />
-    </div>
-  );
-}
-
-export default App;
