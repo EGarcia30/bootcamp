@@ -1,15 +1,8 @@
-export const Note = ({id, content, categories = []}) => {
+export const Note = ({id, content}) => {
     return(
         <li>
             <p>{id}</p>
             <p>{content}</p>
-            {
-                categories.map((category) =>{
-                    return(
-                       <p key={category}>{category}</p> 
-                    )
-                })
-            }
         </li>
     ) 
 }
