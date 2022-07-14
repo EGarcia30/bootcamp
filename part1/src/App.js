@@ -1,12 +1,20 @@
 import { Note } from "./Note"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from 'axios'
 
 
 export default function App(props) {
-  const [notes, setNotes] = useState(props.notes);
+  const [notes, setNotes] = useState([]);
   const [newNotes, setNewNotes] = useState('');
-  const [showAll, setShowAll] = useState(true)
 
+  useEffect(() => {
+    console.log("useEffect")
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(response => response.json())
+    .then(json => {
+      setNotes(json);
+    })
+  }, [])
   const handleChange = (e) => {
     setNewNotes(e.target.value)
   }
@@ -15,30 +23,21 @@ export default function App(props) {
     e.preventDefault();
     const noteToAddToState = {
       id: notes.length + 1,
-      content: newNotes,
-      date: new Date().toISOString(),
-      important: Math.random() < 0.5
+      title: newNotes,
+      body: new Date().toISOString(),
     };
 
     setNotes([...notes, noteToAddToState]);
     setNewNotes("");
   }
 
-  const handleImportant = () => {
-    setShowAll(() => !showAll);
-  }
 
   return(
     <div>
       <ul>
         <h1>Notes</h1>
-        <button onClick={handleImportant}>{showAll ? 'show only important' : 'show All'}</button>
         {
           notes
-          .filter((note) => {
-            if(showAll === true) return true;
-            return note.important === true;
-          })
           .map((note) => {
             return(
               <Note key={note.id} {...note} />
